@@ -27,7 +27,7 @@ const searchInput = document.getElementById('search-input');
         container.innerHTML = '<p>Error al cargar los talleres. Verifica tu conexión o el servidor local.</p>';
     }
 }*/
-async function cargarTalleres() {
+async function loadWorkshops() {
     try {
         const respuesta = await fetch('data.json');
         let talleresBase = await respuesta.json();
@@ -39,11 +39,10 @@ async function cargarTalleres() {
         const mapaFusion = new Map();
         talleresBase.forEach(t => mapaFusion.set(t.id, t));
         talleresLocales.forEach(t => mapaFusion.set(t.id, t)); 
-
-        talleresDB = Array.from(mapaFusion.values());
+    
+        workshops = Array.from(mapaFusion.values());
         
-        dibujarMarcadores(talleresDB);
-        mostrarResultadosLista(talleresDB); // Mostrar todos los talleres al cargar
+        renderWorkshops(workshops); 
     } catch (error) {
         console.error("Error al cargar los talleres:", error);
     }
