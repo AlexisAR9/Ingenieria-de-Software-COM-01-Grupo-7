@@ -6,27 +6,6 @@ let marker = null;
 const container = document.getElementById('workshops-container');
 const searchInput = document.getElementById('search-input');
 
-//const searchView = document.getElementById('search-view');
-//const detailView = document.getElementById('detail-view');
-
-// 2. FUNCIÓN PARA OBTENER LOS DATOS (FETCH)
-/*async function loadWorkshops() {
-    try {
-        const response = await fetch('data.json');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        workshops = await response.json(); // Guardamos los datos en la variable global
-        
-        renderWorkshops(workshops);        // Mostramos los talleres en pantalla
-
-    } catch (error) {
-        console.error("Error al cargar el archivo JSON:", error);
-        container.innerHTML = '<p>Error al cargar los talleres. Verifica tu conexión o el servidor local.</p>';
-    }
-}*/
 async function loadWorkshops() {
     try {
         const respuesta = await fetch('data.json');
