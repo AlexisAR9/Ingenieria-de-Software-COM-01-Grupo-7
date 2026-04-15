@@ -10,7 +10,7 @@ const searchInput = document.getElementById('search-input');
 //const detailView = document.getElementById('detail-view');
 
 // 2. FUNCIÓN PARA OBTENER LOS DATOS (FETCH)
-async function loadWorkshops() {
+/*async function loadWorkshops() {
     try {
         const response = await fetch('data.json');
         
@@ -25,6 +25,27 @@ async function loadWorkshops() {
     } catch (error) {
         console.error("Error al cargar el archivo JSON:", error);
         container.innerHTML = '<p>Error al cargar los talleres. Verifica tu conexión o el servidor local.</p>';
+    }
+}*/
+async function cargarTalleres() {
+    try {
+        const respuesta = await fetch('data.json');
+        let talleresBase = await respuesta.json();
+
+        const dataLocal = localStorage.getItem('cc_talleres');
+        let talleresLocales = dataLocal && dataLocal !== "[]" ? JSON.parse(dataLocal) : [];
+
+        // Usamos Map para evitar talleres duplicados por ID
+        const mapaFusion = new Map();
+        talleresBase.forEach(t => mapaFusion.set(t.id, t));
+        talleresLocales.forEach(t => mapaFusion.set(t.id, t)); 
+
+        talleresDB = Array.from(mapaFusion.values());
+        
+        dibujarMarcadores(talleresDB);
+        mostrarResultadosLista(talleresDB); // Mostrar todos los talleres al cargar
+    } catch (error) {
+        console.error("Error al cargar los talleres:", error);
     }
 }
 
